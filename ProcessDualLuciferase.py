@@ -71,10 +71,6 @@ Relative_values = Relative_values.drop('Firefly', 1)
 Relative_values = Relative_values.drop('plot_label', 1)
 Relative_values_reordered = Relative_values.sort(columns='Genotype', axis=0, ascending=True)
 
-
-print Relative_values_reordered
-
-
 ax = sns.factorplot(x = "Plasmid", y = "Relative Renilla", col = "Genotype", data = Relative_values_reordered, kind = "strip", jitter = 0.25, marker = 'D', edgecolor = 'gray')
 plt.legend()
 plt.show()
