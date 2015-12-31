@@ -9,6 +9,19 @@ ProcessDualLuciferase.py reads an excel file and containing luciferase readings 
 Note – Within the excel sheet there should only be one cell which contains the background Renilla luciferase and one cell containing background Firefly luciferase and this sample should be labelled ‘blank’.  
 
 
+Dependencies:
+
+
+•	Pandas 
+
+•	Xlrd
+
+•	seaborn 
+
+•	matplotlib
+
+
+
 TO DO
 
 Finish ReadMe – upload some sample graphs
