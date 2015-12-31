@@ -13,11 +13,8 @@ Dependencies:
 
 
 •	Pandas 
-
 •	Xlrd
-
 •	seaborn 
-
 •	matplotlib
 
 
