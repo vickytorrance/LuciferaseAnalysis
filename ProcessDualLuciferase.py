@@ -20,7 +20,7 @@ if control == 'Firefly' or control == 'firefly' or control == 'FIREFLY':
 else:
     reporter = 'Firefly'
 
-f = pd.read_excel('/example_data.xlsx', skiprows= row_skip, parse_cols = first_col_last_col)
+f = pd.read_excel('example_data.xlsx', skiprows= row_skip, parse_cols = first_col_last_col)
 
 # Deducts the blank and then removes it from dataframe
 x = f.loc[(f['Genotype'] == 'blank')]
@@ -74,6 +74,11 @@ Relative_values_reordered = Relative_values.sort(columns='Genotype', axis=0, asc
 ax = sns.factorplot(x = "Plasmid", y = "Relative Renilla", col = "Genotype", data = Relative_values_reordered, kind = "strip", jitter = 0.25, marker = 'D', edgecolor = 'gray')
 plt.legend()
 plt.show()
+
+ax2 = sns.factorplot(x = "Genotype", y = "Relative Renilla", col = "Plasmid", data = Relative_values_reordered, kind = "strip", jitter = 0.25, marker = 'D', edgecolor = 'gray')
+plt.legend()
+plt.show()
+
 
 genNames, df_genotypes = [], []
 for g in Genotypes:
