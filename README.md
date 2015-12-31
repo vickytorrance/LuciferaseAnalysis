@@ -3,7 +3,7 @@ Firefly and Renilla luciferases are widely used as reporter genes for studying g
 
 Plasmids are typically transformed into cells of different genotypes to study the effect of a given genotype on the expression of the reporter gene. Each sample will therefore have a ‘Genotype’ ID, a ‘Plasmid’ ID, a ‘Firefly’ reading and a ‘Renilla’ reading. Background is measured using a sample containing only cells.
 
-ProcessDualLuciferase.py reads an excel file and containing luciferase readings labelled with the Genotype and plasmid of the sample and plots renilla (or firefly if renilla is the control) levels as stripplots. A bar graph containing the ‘raw data’ ie the firefly and luciferase levels is also generated. 
+ProcessDualLuciferase.py reads an excel file containing luciferase readings labelled with the Genotype ID and plasmid ID of the sample and plots renilla (or firefly if renilla is the control) levels as stripplots. A bar graph containing the ‘raw data’ ie the firefly and luciferase levels is also generated. 
 
 
 Note – Within the excel sheet there should only be one cell which contains the background Renilla luciferase and one cell containing background Firefly luciferase and this sample should be labelled ‘blank’.  
