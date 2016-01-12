@@ -16,6 +16,13 @@ def getSpreadsheet():
     else:
         return(flist[0])
 
+def getReporter(control):
+    if control.upper() == 'FIREFLY':
+        reporter = 'Renilla'
+    else:
+        reporter = 'Firefly'
+    return(reporter)
+
 ##### USER INPUT REQUIRED ########
 control = 'firefly'
 # user can optionally specify a spreadsheet filename.  Specify a value of None to search for a spreadsheet automatically
@@ -26,10 +33,7 @@ first_col_last_col = range(2,8,1)
 row_skip = 1
 ##############
 
-if control.upper() == 'FIREFLY':
-    reporter = 'Renilla'
-else:
-    reporter = 'Firefly'
+reporter=getReporter(control)
 
 if spread_file is None:
     spread_file=getSpreadsheet()
