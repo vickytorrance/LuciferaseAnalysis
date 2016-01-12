@@ -20,7 +20,7 @@ def getSpreadsheet():
 control = 'firefly'
 # user can optionally specify a spreadsheet filename.  Specify a value of None to search for a spreadsheet automatically
 spread_file = None
-# first and last collumn containing data
+# first and last column containing data
 first_col_last_col = range(2,8,1)
 # which row in the spreadsheet does the data start?
 row_skip = 1
