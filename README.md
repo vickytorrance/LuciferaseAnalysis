@@ -21,6 +21,6 @@ Dependencies:
 
 TO DO
 
-Finish ReadMe – upload some sample graphs
+Finish README.md – upload some sample plots
 
 Tidy and upload script to plot fold changes
