@@ -40,16 +40,12 @@ if spread_file is None:
 
 f = pd.read_excel(spread_file, skiprows= row_skip, parse_cols = first_col_last_col)
 
-# Deducts the blank and then removes it from dataframe
+# Deducts blank values from Firefly and Renilla columns and then removes blank values from dataframe
 x = f.loc[(f['Genotype'] == 'blank')]
-blank_F, blank_R =  x['Firefly'], x['Renilla']
-i = 0
-for first, last, x, y in zip(f['Plasmid'], f['Genotype'], f['Firefly'], f['Renilla']):
-    f['Firefly'][i] = x - blank_F
-    f['Renilla'][i] = y - blank_R
-    i = i+1
+blank_F, blank_R =  x['Firefly'].values[0], x['Renilla'].values[0]
+f["Firefly"]=f["Firefly"]-blank_F
+f["Renilla"]=f["Renilla"]-blank_R
 f = f[f.Plasmid != "blank"]
-
 
 # returns a list of unique geneotypes within our dataframe
 Genotypes = set(f['Genotype'])
