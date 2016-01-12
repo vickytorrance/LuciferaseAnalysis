@@ -1,13 +1,25 @@
 __author__ = 'victoriatorrance'
 
-
+import glob
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+def getSpreadsheet():
+    '''Finds a single Excel spreadsheet in the current directory.'''
+    flist=glob.glob("./*.xls*")
+    if len(flist)>1:
+        print("Too many Excel files to choose from!")
+        for f in flist:
+            print f
+        return()
+    else:
+        return(flist[0])
 
 ##### USER INPUT REQUIRED ########
 control = 'firefly'
+# user can optionally specify a spreadsheet filename.  Specify a value of None to search for spreadsheets automatically
+spread_file = None
 # first and last collumn containing data
 first_col_last_col = range(2,8,1)
 # which row in the spreadsheet does the data start?
@@ -19,7 +31,10 @@ if control.upper() == 'FIREFLY':
 else:
     reporter = 'Firefly'
 
-f = pd.read_excel('example_data.xlsx', skiprows= row_skip, parse_cols = first_col_last_col)
+if spread_file is None:
+    spread_file=getSpreadsheet()
+
+f = pd.read_excel(spread_file, skiprows= row_skip, parse_cols = first_col_last_col)
 
 # Deducts the blank and then removes it from dataframe
 x = f.loc[(f['Genotype'] == 'blank')]
