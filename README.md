@@ -23,4 +23,6 @@ TO DO
 
 Finish README.md – upload some sample plots
 
-Tidy and upload script to plot fold changes
+upload script to plot fold changes
+
+
