@@ -14,8 +14,7 @@ first_col_last_col = range(2,8,1)
 row_skip = 1
 ##############
 
-
-if control == 'Firefly' or control == 'firefly' or control == 'FIREFLY':
+if control.upper() == 'FIREFLY':
     reporter = 'Renilla'
 else:
     reporter = 'Firefly'
