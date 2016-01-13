@@ -67,7 +67,6 @@ for i,gene in enumerate(Genotypes):
 plt.show()
 
 # creates a new dataframe containing only relative renilla values
-raw_data = f[["plot_label","Firefly","Renilla"]].set_index("plot_label")
 Relative_values_reordered = f[["Plasmid","Genotype",replab]].sort(columns='Genotype', axis=0, ascending=True)
 
 ax = sns.factorplot(x = "Plasmid", y = "Relative Renilla", col = "Genotype", data = Relative_values_reordered, kind = "strip", jitter = 0.25, marker = 'D', edgecolor = 'gray')
