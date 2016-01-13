@@ -47,7 +47,7 @@ f["Firefly"]=f["Firefly"]-blank_F
 f["Renilla"]=f["Renilla"]-blank_R
 f = f[f.Plasmid != "blank"]
 
-# returns a list of unique genotypes within our dataframe
+# subsets original dataframe to give dataframes with unique genotypes
 Genotypes = set(f['Genotype'])
 Genotypes = sorted(Genotypes, reverse=False)
 
