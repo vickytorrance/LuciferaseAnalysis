@@ -47,25 +47,17 @@ f["Firefly"]=f["Firefly"]-blank_F
 f["Renilla"]=f["Renilla"]-blank_R
 f = f[f.Plasmid != "blank"]
 
-# returns a list of unique geneotypes within our dataframe
+# returns a list of unique genotypes within our dataframe
 Genotypes = set(f['Genotype'])
 Genotypes = sorted(Genotypes, reverse=False)
-# loops through each of the unique geneotypes and returns for each a dataframe containing the only the values concerned
-# with that geneotype. these are stored in a list which is zipped to its 'geneotype' name
-dfs, Genes = [], []
-for gene in Genotypes:
-    data = f[f['Genotype'].isin([gene])]
-    data =  data.drop('Genotype', 1)
-    data = data.set_index(data.Plasmid)
-    dfs.append((data))
-    Genes.append((gene))
-zipped = zip(Genes, dfs)
+
+grps=f.groupby("Genotype")
 
 # raw data is plotted, each geneotype in a separate subplot
-fig, axes = plt.subplots(nrows=1, ncols=len(zipped), sharey=True)
-for i in range(0, len(zipped)):
-    zipped[i][1].plot(ax=axes[i], kind='bar', color=['r','y']); axes[i].set_title('%s'%zipped[i][0]) #r'%s$\Delta$'
-
+fig, axes = plt.subplots(nrows=1, ncols=len(Genotypes), sharey=True)
+for i,gene in enumerate(Genotypes):
+    pltdf=grps.get_group(gene)[["Plasmid","Firefly","Renilla"]].set_index("Plasmid")
+    pltdf.plot(ax=axes[i], kind='bar', color=['r','y']); axes[i].set_title('%s'%gene) #r'%s$\Delta$'
 plt.show()
 
 # creates a new dataframe containing only relative renilla values
