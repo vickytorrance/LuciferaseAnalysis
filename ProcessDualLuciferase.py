@@ -53,7 +53,7 @@ Genotypes = sorted(Genotypes, reverse=False)
 
 grps=f.groupby("Genotype")
 
-# raw data is plotted, each geneotype in a separate subplot
+# raw data is plotted, each genotype in a separate subplot
 fig, axes = plt.subplots(nrows=1, ncols=len(Genotypes), sharey=True)
 for i,gene in enumerate(Genotypes):
     pltdf=grps.get_group(gene)[["Plasmid","Firefly","Renilla"]].set_index("Plasmid")
