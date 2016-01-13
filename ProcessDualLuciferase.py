@@ -17,11 +17,30 @@ def getSpreadsheet():
         return(flist[0])
 
 def getReporter(control):
+    '''Sanitise user specification of control and deduce correct reporter'''
     if control.upper() == 'FIREFLY':
         reporter = 'Renilla'
     else:
         reporter = 'Firefly'
     return(reporter)
+
+def readData(spread_file,reporter,row_skip,first_col_last_col):
+    '''Reads in reporter signal data, adds extra columns and corrects for blanks, where present'''
+    f = pd.read_excel(spread_file, skiprows= row_skip, parse_cols = first_col_last_col)
+    f['plot_label'] = [x + ' ' + y for x, y in zip(f.Genotype, f.Plasmid)]
+    if reporter=="Renilla":
+        f[replab] = f['Renilla']/f['Firefly']
+    else:
+        f[replab] = f['Firefly']/f['Renilla']
+
+    # Deducts blank values from Firefly and Renilla columns and then removes blank values from dataframe
+    meanblank = f.loc[(f['Genotype'] == 'blank')].mean(axis=0)
+    if not pd.isnull(meanblank["Firefly"]):
+        f["Firefly"]=f["Firefly"]-meanblank['Firefly']
+    if not pd.isnull(meanblank["Renilla"]):
+        f["Renilla"]=f["Renilla"]-meanblank['Renilla']
+    f = f[f.Plasmid != "blank"]
+    return(f)
 
 ##### USER INPUT REQUIRED ########
 control = 'firefly'
@@ -39,19 +58,7 @@ replab="Relative "+reporter
 if spread_file is None:
     spread_file=getSpreadsheet()
 
-f = pd.read_excel(spread_file, skiprows= row_skip, parse_cols = first_col_last_col)
-f['plot_label'] = [x + ' ' + y for x, y in zip(f.Genotype, f.Plasmid)]
-if reporter=="Renilla":
-    f[replab] = f['Renilla']/f['Firefly']
-else:
-    f[replab] = f['Firefly']/f['Renilla']
-
-# Deducts blank values from Firefly and Renilla columns and then removes blank values from dataframe
-x = f.loc[(f['Genotype'] == 'blank')]
-blank_F, blank_R =  x['Firefly'].values[0], x['Renilla'].values[0]
-f["Firefly"]=f["Firefly"]-blank_F
-f["Renilla"]=f["Renilla"]-blank_R
-f = f[f.Plasmid != "blank"]
+f = readData(spread_file,reporter,row_skip,first_col_last_col)
 
 # subsets original dataframe to give dataframes with unique genotypes
 Genotypes = set(f['Genotype'])
@@ -76,7 +83,6 @@ plt.show()
 ax2 = sns.factorplot(x = "Genotype", y = "Relative Renilla", col = "Plasmid", data = Relative_values_reordered, kind = "strip", jitter = 0.25, marker = 'D', edgecolor = 'gray')
 plt.legend()
 plt.show()
-
 
 genNames, df_genotypes = [], []
 for g in Genotypes:
